@@ -1,0 +1,203 @@
+$stop = ea.sc.nOfQualityEvaluations(n = 10000)
+$mapper = ea.m.identity()
+$factory = ea.r.f.dsUniform(initialMinV = -1.0; initialMaxV = 1.0)
+
+$problems = [
+  ea.p.s.sphere(name = "Sphere-20"; p = 20);
+  ea.p.s.sphere(name = "Sphere-100"; p = 100);
+  ea.p.s.sphere(name = "Sphere-200"; p = 200);
+  ea.p.s.sphere(name = "Sphere-500"; p = 500);
+  ea.p.s.pointAiming(name = "PA-1-20"; p = 20; target = 1.0);
+  ea.p.s.pointAiming(name = "PA-1-100"; p = 100; target = 1.0);
+  ea.p.s.pointAiming(name = "PA-1-200"; p = 200; target = 1.0);
+  ea.p.s.pointAiming(name = "PA-1-500"; p = 500; target = 1.0);
+  ea.p.s.pointAiming(name = "PA-10-20"; p = 20; target = 10.0);
+  ea.p.s.pointAiming(name = "PA-10-100"; p = 100; target = 10.0);
+  ea.p.s.pointAiming(name = "PA-10-200"; p = 200; target = 10.0);
+  ea.p.s.pointAiming(name = "PA-10-500"; p = 500; target = 10.0);
+  ea.p.s.circularPointsAiming(name = "CPA-20"; p = 20; n = 5; radius = 2.0; center = 1.0; seed = 1);
+  ea.p.s.circularPointsAiming(name = "CPA-100"; p = 100; n = 5; radius = 2.0; center = 1.0; seed = 1);
+  ea.p.s.circularPointsAiming(name = "CPA-200"; p = 200; n = 5; radius = 2.0; center = 1.0; seed = 1);
+  ea.p.s.circularPointsAiming(name = "CPA-500"; p = 500; n = 5; radius = 2.0; center = 1.0; seed = 1);
+  ea.p.s.ackley(name = "Ackley-20"; p = 20);
+  ea.p.s.ackley(name = "Ackley-100"; p = 100);
+  ea.p.s.ackley(name = "Ackley-200"; p = 200);
+  ea.p.s.ackley(name = "Ackley-500"; p = 500);
+  ea.p.s.rastrigin(name = "Rastrigin-20"; p = 20);
+  ea.p.s.rastrigin(name = "Rastrigin-100"; p = 100);
+  ea.p.s.rastrigin(name = "Rastrigin-200"; p = 200);
+  ea.p.s.rastrigin(name = "Rastrigin-500"; p = 500)
+]
+
+$solvers = [
+  ea.s.cmaEs(
+    name = "cmaEs";
+    mapper = $mapper;
+    factory = $factory;
+    stop = $stop
+  );
+  ea.s.differentialEvolution(
+    name = "de";
+    mapper = $mapper;
+    factory = $factory;
+    populationSize = 15;
+    differentialWeight = 0.5;
+    crossoverP = 0.8;
+    stop = $stop
+  );
+  ea.s.pso(
+    name = "pso";
+    mapper = $mapper;
+    factory = $factory;
+    nPop = 100;
+    w = 0.8;
+    phiParticle = 1.5;
+    phiGlobal = 1.5;
+    stop = $stop
+  );
+  ea.s.simpleEs(
+    name = "simpleEs-0.02";
+    mapper = $mapper;
+    factory = $factory;
+    sigma = 0.02;
+    parentsRate = 0.33;
+    nOfElites = 1;
+    nPop = 30;
+    stop = $stop
+  );
+  ea.s.simpleEs(
+    name = "simpleEs-0.25";
+    mapper = $mapper;
+    factory = $factory;
+    sigma = 0.25;
+    parentsRate = 0.33;
+    nOfElites = 1;
+    nPop = 30;
+    stop = $stop
+  );
+  ea.s.simpleEs(
+    name = "simpleEs-0.5";
+    mapper = $mapper;
+    factory = $factory;
+    sigma = 0.5;
+    parentsRate = 0.33;
+    nOfElites = 1;
+    nPop = 30;
+    stop = $stop
+  );
+  ea.s.ga(
+    name = "ga-0.02";
+    representation = ea.r.doubleString(
+      factory = $factory;
+      mutations = [ea.r.go.dsGaussianMutation(sigmaMut = 0.02)];
+      xovers = [
+        ea.r.go.composedXover(
+          mutation = ea.r.go.dsGaussianMutation(sigmaMut = 0.02);
+          xover = ea.r.go.dsSegmentGeometricXover()
+        )
+      ]
+    );
+    mapper = $mapper;
+    crossoverP = 0.8;
+    nPop = 100;
+    tournamentRate = 0.05;
+    minNTournament = 5;
+    stop = $stop
+  );
+  ea.s.ga(
+    name = "ga-0.25";
+    representation = ea.r.doubleString(
+      factory = $factory;
+      mutations = [ea.r.go.dsGaussianMutation(sigmaMut = 0.25)];
+      xovers = [
+        ea.r.go.composedXover(
+          mutation = ea.r.go.dsGaussianMutation(sigmaMut = 0.25);
+          xover = ea.r.go.dsSegmentGeometricXover()
+        )
+      ]
+    );
+    mapper = $mapper;
+    crossoverP = 0.8;
+    nPop = 100;
+    tournamentRate = 0.05;
+    minNTournament = 5;
+    stop = $stop
+  );
+  ea.s.ga(
+    name = "ga-0.5";
+    representation = ea.r.doubleString(
+      factory = $factory;
+      mutations = [ea.r.go.dsGaussianMutation(sigmaMut = 0.5)];
+      xovers = [
+        ea.r.go.composedXover(
+          mutation = ea.r.go.dsGaussianMutation(sigmaMut = 0.5);
+          xover = ea.r.go.dsSegmentGeometricXover()
+        )
+      ]
+    );
+    mapper = $mapper;
+    crossoverP = 0.8;
+    nPop = 100;
+    tournamentRate = 0.05;
+    minNTournament = 5;
+    stop = $stop
+  )
+]
+
+ea.experiment(
+  runs = (randomGenerator = (seed = [1:1:30]) * [m.defaultRG()])
+  * (problem = $problems)
+  * (solver = $solvers)
+  * [ea.run(name = "scenario1")];
+  listeners = [
+    ea.l.console(
+      eFunctions = [
+        ea.f.quality(
+          of = ea.f.best();
+          format = "%8.5f"
+        )
+      ];
+      onlyLast = false
+    );
+    ea.l.csv(
+      path = "./out/Scenario_1.csv";
+      defaultKFunctions = [];
+      kFunctions = [
+        f.mappableKey(name = "seed"; key = "randomGenerator.seed");
+        f.mappableKey(name = "problem"; key = "problem.name");
+        f.mappableKey(name = "solver_sigma"; key = "solver.name")
+      ];
+      eFunctions = [
+        f.size(
+          of = ea.f.genotype(of = ea.f.best());
+          format = "%d"
+        );
+        ea.f.quality(
+          of = ea.f.best();
+          format = "%.17f"
+        )
+      ];
+      onlyLast = false
+    );
+    ea.l.csv(
+      path = "./out/Scenario_1_final.csv";
+      defaultKFunctions = [];
+      kFunctions = [
+        f.mappableKey(name = "seed"; key = "randomGenerator.seed");
+        f.mappableKey(name = "problem"; key = "problem.name");
+        f.mappableKey(name = "solver_sigma"; key = "solver.name")
+      ];
+      eFunctions = [
+        f.size(
+          of = ea.f.genotype(of = ea.f.best());
+          format = "%d"
+        );
+        ea.f.quality(
+          of = ea.f.best();
+          format = "%.17f"
+        )
+      ];
+      onlyLast = true
+    )
+  ]
+)

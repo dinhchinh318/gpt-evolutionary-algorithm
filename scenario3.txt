@@ -1,0 +1,372 @@
+$dT = 0.1
+$tRange = m.range(min = 0; max = 60)
+$stop = ea.sc.nOfQualityEvaluations(n = 10000)
+$mapper = ea.mapper.dsToNpnds(npnds = ds.num.mlp(innerLayerRatio = 3; nOfInnerLayers = 1))
+$factory = ea.representation.factory.dsUniform(initialMinV = -1; initialMaxV = 1)
+
+$problems = [
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "small_barrier-3";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = a_barrier);
+          nOfSensors = 2;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "small_barrier-5";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = a_barrier);
+          nOfSensors = 4;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "small_barrier-9";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = a_barrier);
+          nOfSensors = 9;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "large_barrier-3";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = e_barrier);
+          nOfSensors = 2;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "large_barrier-5";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = e_barrier);
+          nOfSensors = 4;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "large_barrier-9";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = e_barrier);
+          nOfSensors = 9;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "easy_maze-3";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = e_maze);
+          nOfSensors = 2;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "easy_maze-5";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = e_maze);
+          nOfSensors = 4;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  );
+  ea.p.moToSo(
+    objective = "avg.dist";
+    moProblem = ea.p.simToSbbmo(
+      name = "easy_maze-9";
+      simulation = ds.sat.fromEnvironment(
+        environment = ds.e.navigation(
+          arena = ds.arena.prepared(name = e_maze);
+          nOfSensors = 9;
+          sensorRange = 1.0;
+          robotRadius = 0.05;
+          robotMaxV = 0.10;
+          senseTarget = true;
+          rescaleInput = true
+        )
+      );
+      dT = $dT;
+      tRange = $tRange;
+      toMinObjectives = [ds.e.n.avgD()]
+    )
+  )
+]
+
+$solvers = [
+  ea.s.cmaEs(
+    name = "cmaEs";
+    mapper = $mapper;
+    factory = $factory;
+    stop = $stop
+  );
+  ea.s.differentialEvolution(
+    name = "de";
+    mapper = $mapper;
+    factory = $factory;
+    populationSize = 15;
+    differentialWeight = 0.5;
+    crossoverP = 0.8;
+    stop = $stop
+  );
+  ea.s.pso(
+    name = "pso";
+    mapper = $mapper;
+    factory = $factory;
+    nPop = 100;
+    w = 0.8;
+    phiParticle = 1.5;
+    phiGlobal = 1.5;
+    stop = $stop
+  );
+  ea.s.simpleEs(
+    name = "simpleEs-0.02";
+    mapper = $mapper;
+    factory = $factory;
+    sigma = 0.02;
+    parentsRate = 0.33;
+    nOfElites = 1;
+    nPop = 30;
+    stop = $stop
+  );
+  ea.s.simpleEs(
+    name = "simpleEs-0.25";
+    mapper = $mapper;
+    factory = $factory;
+    sigma = 0.25;
+    parentsRate = 0.33;
+    nOfElites = 1;
+    nPop = 30;
+    stop = $stop
+  );
+  ea.s.simpleEs(
+    name = "simpleEs-0.5";
+    mapper = $mapper;
+    factory = $factory;
+    sigma = 0.5;
+    parentsRate = 0.33;
+    nOfElites = 1;
+    nPop = 30;
+    stop = $stop
+  );
+  ea.s.ga(
+    name = "ga-0.02";
+    representation = ea.representation.doubleString(
+      factory = $factory;
+      mutations = [
+        ea.r.go.dsGaussianMutation(sigmaMut = 0.02)
+      ];
+      xovers = [
+        ea.r.go.composedXover(
+          mutation = ea.r.go.dsGaussianMutation(sigmaMut = 0.02);
+          xover = ea.r.go.dsSegmentGeometricXover()
+        )
+      ]
+    );
+    mapper = $mapper;
+    crossoverP = 0.8;
+    nPop = 100;
+    tournamentRate = 0.05;
+    minNTournament = 5;
+    stop = $stop
+  );
+  ea.s.ga(
+    name = "ga-0.25";
+    representation = ea.representation.doubleString(
+      factory = $factory;
+      mutations = [
+        ea.r.go.dsGaussianMutation(sigmaMut = 0.25)
+      ];
+      xovers = [
+        ea.r.go.composedXover(
+          mutation = ea.r.go.dsGaussianMutation(sigmaMut = 0.25);
+          xover = ea.r.go.dsSegmentGeometricXover()
+        )
+      ]
+    );
+    mapper = $mapper;
+    crossoverP = 0.8;
+    nPop = 100;
+    tournamentRate = 0.05;
+    minNTournament = 5;
+    stop = $stop
+  );
+  ea.s.ga(
+    name = "ga-0.5";
+    representation = ea.representation.doubleString(
+      factory = $factory;
+      mutations = [
+        ea.r.go.dsGaussianMutation(sigmaMut = 0.5)
+      ];
+      xovers = [
+        ea.r.go.composedXover(
+          mutation = ea.r.go.dsGaussianMutation(sigmaMut = 0.5);
+          xover = ea.r.go.dsSegmentGeometricXover()
+        )
+      ]
+    );
+    mapper = $mapper;
+    crossoverP = 0.8;
+    nPop = 100;
+    tournamentRate = 0.05;
+    minNTournament = 5;
+    stop = $stop
+  )
+]
+
+ea.experiment(
+  runs = (randomGenerator = (seed = [1:1:30]) * [m.defaultRG()])
+  * (problem = $problems)
+  * (solver = $solvers)
+  * [ea.run(name = "scenario3")];
+  listeners = [
+    ea.l.console(
+      eFunctions = [
+        f.mapValue(
+          key = "avg.dist";
+          of = ea.f.behaviorQuality(of = ea.f.quality(of = ea.f.best()));
+          format = "%8.5f"
+        )
+      ];
+      onlyLast = false
+    );
+    ea.l.csv(
+      path = "./out/scenario3-progress.csv";
+      defaultKFunctions = [];
+      kFunctions = [
+        f.mappableKey(name = "seed"; key = "randomGenerator.seed");
+        f.mappableKey(name = "problem"; key = "problem.name");
+        f.mappableKey(name = "solver_sigma"; key = "solver.name")
+      ];
+      eFunctions = [
+        f.size(
+          of = ea.f.genotype(of = ea.f.best());
+          format = "%d"
+        );
+        f.mapValue(
+          key = "avg.dist";
+          of = ea.f.behaviorQuality(of = ea.f.quality(of = ea.f.best()));
+          format = "%.17f"
+        )
+      ];
+      onlyLast = false
+    );
+    ea.l.csv(
+      path = "./out/scenario3-final.csv";
+      defaultKFunctions = [];
+      kFunctions = [
+        f.mappableKey(name = "seed"; key = "randomGenerator.seed");
+        f.mappableKey(name = "problem"; key = "problem.name");
+        f.mappableKey(name = "solver_sigma"; key = "solver.name")
+      ];
+      eFunctions = [
+        f.size(
+          of = ea.f.genotype(of = ea.f.best());
+          format = "%d"
+        );
+        f.mapValue(
+          key = "avg.dist";
+          of = ea.f.behaviorQuality(of = ea.f.quality(of = ea.f.best()));
+          format = "%.17f"
+        )
+      ];
+      onlyLast = true
+    )
+  ]
+)

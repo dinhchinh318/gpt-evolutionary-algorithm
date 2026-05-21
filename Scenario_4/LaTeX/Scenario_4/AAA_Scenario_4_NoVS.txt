@@ -1,0 +1,16 @@
+\begin{tabular}{lr}
+\toprule
+ & NoVS \\
+winner &  \\
+\midrule
+cmaEs & 41 \\
+differentialEvolution & 37 \\
+es-0.02 & 35 \\
+es-0.25 & 39 \\
+es-0.5 & 37 \\
+ga-0.02 & 30 \\
+ga-0.25 & 18 \\
+ga-0.5 & 20 \\
+pso & 13 \\
+\bottomrule
+\end{tabular}
